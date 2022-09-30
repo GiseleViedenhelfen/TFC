@@ -24,7 +24,6 @@ export default class UserController {
 
   public role = async (req: Request, res: Response): Promise<Response> => {
     const { authorization } = req.headers;
-    console.log(authorization);
     if (typeof authorization === 'string') {
       const decript: any = jwt.decode(authorization);
       const role = decript?.data.role;
