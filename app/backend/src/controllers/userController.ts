@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { JwtPayload } from 'jsonwebtoken';
-import { object } from 'prop-types';
+// import { JwtPayload } from 'jsonwebtoken';
+// import { object } from 'prop-types';
 import BcryptService from '../services/utils/BCriptService';
 import UserService from '../services/user';
 
