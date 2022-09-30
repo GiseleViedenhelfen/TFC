@@ -15,6 +15,7 @@ class App {
 
     // Não remover essa rota
     this.app.get('/teams', TeamController.getAll);
+    this.app.get('/teams/:id', TeamController.findByPk);
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.post('/login', middleLogin.LoginValidation, UserController.Login);
     this.app.get('/login/validate', UserController.role);
@@ -27,7 +28,6 @@ class App {
       res.header('Access-Control-Allow-Headers', '*');
       next();
     };
-
     this.app.use(express.json());
     this.app.use(accessControl);
   }
