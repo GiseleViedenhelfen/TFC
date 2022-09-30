@@ -1,32 +1,34 @@
-import { INTEGER, STRING, Model } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import db from '.';
 
 class User extends Model {
   id!: number;
   email!: string;
   password!: string;
+  role!: string;
+  username!: string;
 }
 User.init({
   id: {
-    type: INTEGER,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
   username: {
-    type: STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   email: {
-    type: STRING,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
   password: {
-    type: STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   role: {
-    type: STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
 }, {

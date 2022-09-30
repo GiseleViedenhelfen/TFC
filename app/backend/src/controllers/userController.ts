@@ -1,0 +1,25 @@
+import { Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
+import BcryptService from '../services/utils/BCriptService';
+import UserService from '../services/user';
+
+const tokenJWT = process.env.JWT_SECRET || 'jwt_secret';
+
+export default class UserController {
+  constructor(private userService = new UserService()) {}
+
+  public Login = async (req: Request, res: Response): Promise<Response> => {
+    const { email, password } = req.body;
+    const user = await this.userService.Login(email, password);
+    const token = jwt.sign({ data: user }, tokenJWT);
+    const checkPassword = BcryptService.compare(user.password, password);
+    console.log(checkPassword);
+
+    if (!checkPassword) {
+      return res.status(401).json({ message: 'error' });
+    }
+    console.log();
+
+    return res.status(200).json({ token });
+  };
+}
