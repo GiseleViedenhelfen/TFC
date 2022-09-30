@@ -14,6 +14,7 @@ class App {
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.post('/login', middleLogin.LoginValidation, UserController.Login);
+    this.app.get('/login/validate', UserController.role);
   }
 
   private config():void {

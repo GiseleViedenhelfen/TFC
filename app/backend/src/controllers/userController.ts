@@ -10,13 +10,26 @@ export default class UserController {
 
   public Login = async (req: Request, res: Response): Promise<Response> => {
     const { email, password } = req.body;
+
     const user = await this.userService.Login(email, password);
     const token = jwt.sign({ data: user }, tokenJWT);
+
     const checkPassword = BcryptService.compare(user.password, password);
     if (!checkPassword) {
       return res.status(401).json({ message: 'error' });
     }
 
     return res.status(200).json({ token });
+  };
+
+  public role = async (req: Request, res: Response): Promise<Response> => {
+    const { authorization } = req.headers;
+    console.log(authorization);
+    if (typeof authorization === 'string') {
+      const decript: any = jwt.decode(authorization);
+      const role = decript?.data.role;
+      return res.status(200).json({ role });
+    }
+    return res.status(404).json({ message: 'erro' });
   };
 }
