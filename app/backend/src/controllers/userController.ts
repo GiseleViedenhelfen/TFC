@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
+import { JwtPayload } from 'jsonwebtoken';
+import { object } from 'prop-types';
 import BcryptService from '../services/utils/BCriptService';
 import UserService from '../services/user';
 
@@ -25,9 +27,11 @@ export default class UserController {
   public role = async (req: Request, res: Response): Promise<Response> => {
     const { authorization } = req.headers;
     if (typeof authorization === 'string') {
-      const decript: any = jwt.decode(authorization);
-      const role = decript?.data.role;
-      return res.status(200).json({ role });
+      const decript: string | jwt.JwtPayload | null = jwt.decode(authorization);
+      if (decript && typeof decript === 'object') {
+        const { role } = decript.data;
+        return res.status(200).json({ role });
+      }
     }
     return res.status(404).json({ message: 'erro' });
   };
