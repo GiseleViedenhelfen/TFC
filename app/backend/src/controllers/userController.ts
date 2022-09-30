@@ -33,6 +33,6 @@ export default class UserController {
         return res.status(200).json({ role });
       }
     }
-    return res.status(404).json({ message: 'erro' });
+    return res.status(404).json({ message: 'error' });
   };
 }
