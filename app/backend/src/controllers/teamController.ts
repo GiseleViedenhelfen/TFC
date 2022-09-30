@@ -11,6 +11,7 @@ export default class TeamController {
   public findByPk = async (req: Request, res: Response): Promise<Response> => {
     const { id } = req.params;
     const team = await this.teamService.findByPk(id);
+
     return res.status(200).json(team);
   };
 }
