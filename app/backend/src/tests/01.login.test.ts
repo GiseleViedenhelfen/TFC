@@ -10,6 +10,8 @@ import { Response } from 'superagent';
 
 chai.use(chaiHttp);
 
+// console.log();
+
 const { expect } = chai;
 
 const mockLogin = {
