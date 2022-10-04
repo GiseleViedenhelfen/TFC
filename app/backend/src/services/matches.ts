@@ -1,6 +1,15 @@
 import Team from '../database/models/modelTeams';
 import Match from '../database/models/modelMatch';
 
+interface date {
+
+  homeTeam: number;
+  awayTeam: number;
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+  inProgress: boolean;
+}
+
 export default class MatchService {
   public model = Match;
 
@@ -22,8 +31,8 @@ export default class MatchService {
     return teams;
   }
 
-  // public async findByPk(id:string): Promise<Team | null> {
-  //   const team = await this.model.findByPk(id);
-  //   return team;
-  // }
+  public async changeProgress(matches: date): Promise<Match[] | unknown> {
+    const match = await this.model.create({ ...matches, inProgress: true });
+    return match as Match;
+  }
 }

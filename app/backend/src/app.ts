@@ -24,6 +24,7 @@ class App {
     this.app.get('/matches', matchController.getAll);
     // posts
     this.app.post('/login', middleLogin.LoginValidation, UserController.Login);
+    this.app.post('/matches', matchController.changeProgress);
   }
 
   private config():void {
