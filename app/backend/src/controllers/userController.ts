@@ -17,8 +17,12 @@ export default class UserController {
     const token = jwt.sign({ data: user }, tokenJWT);
 
     const checkPassword = BcryptService.compare(user.password, password);
+    console.log(user.password);
+    console.log(password);
+    console.log(checkPassword);
+
     if (!checkPassword) {
-      return res.status(401).json({ message: 'error' });
+      return res.status(401).json({ message: 'Erro' });
     }
 
     return res.status(200).json({ token });
