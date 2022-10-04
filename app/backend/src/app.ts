@@ -1,6 +1,7 @@
 import * as express from 'express';
 import User from './controllers/userController';
 import Team from './controllers/teamController';
+import Match from './controllers/matchController';
 import LoginMiddle from './middlewares/login';
 
 class App {
@@ -10,15 +11,19 @@ class App {
     this.app = express();
     const UserController = new User();
     const TeamController = new Team();
+    const matchController = new Match();
     const middleLogin = new LoginMiddle();
     this.config();
 
     // Não remover essa rota
+    // gets
+    this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.get('/login/validate', UserController.role);
     this.app.get('/teams', TeamController.getAll);
     this.app.get('/teams/:id', TeamController.findByPk);
-    this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.get('/matches', matchController.getAll);
+    // posts
     this.app.post('/login', middleLogin.LoginValidation, UserController.Login);
-    this.app.get('/login/validate', UserController.role);
   }
 
   private config():void {
