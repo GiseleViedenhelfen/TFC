@@ -3,6 +3,7 @@ import User from './controllers/userController';
 import Team from './controllers/teamController';
 import Match from './controllers/matchController';
 import LoginMiddle from './middlewares/login';
+import MatchMiddle from './middlewares/match';
 
 class App {
   public app: express.Express;
@@ -13,6 +14,7 @@ class App {
     const TeamController = new Team();
     const matchController = new Match();
     const middleLogin = new LoginMiddle();
+    const middleMatch = new MatchMiddle();
     this.config();
 
     // Não remover essa rota
@@ -24,7 +26,7 @@ class App {
     this.app.get('/matches', matchController.getAll);
     // posts
     this.app.post('/login', middleLogin.LoginValidation, UserController.Login);
-    this.app.post('/matches', matchController.changeProgress);
+    this.app.post('/matches', middleMatch.matchvalidation, matchController.changeProgress);
     this.app.patch('/matches/:id/finish', matchController.finishMatch);
   }
 

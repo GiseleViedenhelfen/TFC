@@ -32,8 +32,10 @@ export default class MatchService {
   }
 
   public async changeProgress(matches: date): Promise<Match[] | unknown> {
-    const match = await this.model.create({ ...matches, inProgress: true });
-    return match as Match;
+    if (matches.homeTeam !== matches.awayTeam) {
+      const match = await this.model.create({ ...matches, inProgress: true });
+      return match as Match;
+    }
   }
 
   public async finishMatch(id: number): Promise<Match> {
