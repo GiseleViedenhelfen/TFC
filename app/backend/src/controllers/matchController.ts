@@ -19,4 +19,10 @@ export default class TeamController {
     }
     return res.status(401).json({ message: 'Token must be a valid token' });
   };
+
+  public finishMatch = async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+    await this.matchService.finishMatch(Number(id));
+    return res.status(200).json({ message: 'Finished' });
+  };
 }

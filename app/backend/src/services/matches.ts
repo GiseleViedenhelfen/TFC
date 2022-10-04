@@ -35,4 +35,9 @@ export default class MatchService {
     const match = await this.model.create({ ...matches, inProgress: true });
     return match as Match;
   }
+
+  public async finishMatch(id: number): Promise<Match> {
+    const match = await this.model.update({ inProgress: false }, { where: { id } });
+    return match as unknown as Match;
+  }
 }
