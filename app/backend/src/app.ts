@@ -27,6 +27,7 @@ class App {
     // posts
     this.app.post('/login', middleLogin.LoginValidation, UserController.Login);
     this.app.post('/matches', middleMatch.matchvalidation, matchController.changeProgress);
+    this.app.patch('/matches/:id', matchController.updateMatch);
     this.app.patch('/matches/:id/finish', matchController.finishMatch);
   }
 

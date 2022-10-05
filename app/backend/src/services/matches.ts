@@ -42,4 +42,10 @@ export default class MatchService {
     const match = await this.model.update({ inProgress: false }, { where: { id } });
     return match as unknown as Match;
   }
+
+  public async updateMatch(id: number, homeTeamGoals: number, awayTeamGoals: number)
+    :Promise<Match> {
+    const getMatch = await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    return getMatch as unknown as Match;
+  }
 }
