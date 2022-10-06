@@ -9,6 +9,7 @@ export default class TeamController {
 
   public getAll = async (req: Request, res: Response): Promise<Response> => {
     const matches = await this.matchService.getAll();
+
     return res.status(200).json(matches);
   };
 

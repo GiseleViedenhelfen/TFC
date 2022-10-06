@@ -2,6 +2,7 @@ import * as express from 'express';
 import User from './controllers/userController';
 import Team from './controllers/teamController';
 import Match from './controllers/matchController';
+import Leader from './controllers/LeaderController';
 import LoginMiddle from './middlewares/login';
 import MatchMiddle from './middlewares/match';
 
@@ -13,6 +14,7 @@ class App {
     const UserController = new User();
     const TeamController = new Team();
     const matchController = new Match();
+    const leaderController = new Leader();
     const middleLogin = new LoginMiddle();
     const middleMatch = new MatchMiddle();
     this.config();
@@ -24,6 +26,7 @@ class App {
     this.app.get('/teams', TeamController.getAll);
     this.app.get('/teams/:id', TeamController.findByPk);
     this.app.get('/matches', matchController.getAll);
+    this.app.get('/leaderboard/home', leaderController.getAll);
     // posts
     this.app.post('/login', middleLogin.LoginValidation, UserController.Login);
     this.app.post('/matches', middleMatch.matchvalidation, matchController.changeProgress);
